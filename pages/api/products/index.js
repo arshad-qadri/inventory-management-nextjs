@@ -12,8 +12,8 @@ const handler = nc()
       }
   })
   .post(async(req, res) => {
-   const {bag_id,bag_name,bag_price,total_bag}=req.body
-   const newProduct = new productModel({bag_id,bag_name,bag_price,total_bag})
+   const {bag_id,bag_name,bag_price,qty}=req.body
+   const newProduct = new productModel({bag_id,bag_name,bag_price,qty})
    try {
        await newProduct.save()
        res.json({message:"New product created"})

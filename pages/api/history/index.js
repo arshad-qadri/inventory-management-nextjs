@@ -12,13 +12,13 @@ const handler = nc()
     }
   })
   .post(async (req, res) => {
-    const { bag_id, bag_name, bag_price, total_bag, date, history_type } =
+    const { bag_id, bag_name, bag_price, qty, date, history_type } =
       req.body;
     const newHistory = new historyModel({
       bag_id,
       bag_name,
       bag_price,
-      total_bag,
+      qty,
       date,
       history_type,
     });

@@ -13,7 +13,7 @@ const productSchema= mongoose.Schema({
     type:String,
     required:true
   },
-  total_bag:{
+  qty:{
     type:Number,
     required:true
   },

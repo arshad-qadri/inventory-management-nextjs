@@ -18,7 +18,7 @@ const handler = nc()
           product.bag_id=req.body.bag_id,
           product.bag_name=req.body.bag_name,
           product.bag_price=req.body.bag_price,
-          product.total_bag=req.body.total_bag,
+          product.qty=req.body.qty,
           await product.save()
           res.json({message:"Updated successfully"})
       } catch (error) {
@@ -32,7 +32,7 @@ const handler = nc()
         product.bag_id=req.body.bag_id,
         product.bag_name=req.body.bag_name,
         product.bag_price=req.body.bag_price,
-        product.total_bag=req.body.total_bag,
+        product.qty=req.body.qty,
         await product.save()
         res.json({message:"Added successfully"})
     } catch (error) {
