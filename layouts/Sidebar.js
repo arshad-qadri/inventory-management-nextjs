@@ -1,51 +1,83 @@
-import React from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const [product, setProduct] = useState([]);
+  const [total_value, setTotal_value] = useState(0);
+  const [stock, setStock] = useState(0);
+  const { products } = useSelector((state) => state.productReducer);
+  useEffect(() => {
+    setProduct(products);
+  }, [products]);
+  useEffect(() => {
+    const totVal =
+      product.length > 0 &&
+      product.map((item) => item.qty * parseInt(item.bag_price));
+    const newTotVal = totVal.length > 0 && totVal?.reduce((a, b) => a + b);
+    setTotal_value(newTotVal);
+
+    const stockVal =
+      product.length > 0 && product.map((item) => parseInt(item.qty));
+    const newStockVal =
+      stockVal.length > 0 && stockVal?.reduce((a, b) => a + b);
+
+    setStock(newStockVal);
+  }, [product]);
   return (
     <>
       <div className="vh-100 bg-primary sidebar border-right">
-        <h1 className="text-center border-bottom">Dashboard</h1>
+        <h1 className="text-center border-bottom"><Link href={"/"}><a className="text-white">Dashboard</a></Link></h1>
 
         <ul className="w-100 text-center">
           <li>
-            <a href="#">
+            <Link href="/create-item">
+            <a>
               <Button variant="light" size="sm">
                 Create Item
               </Button>
             </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+          <Link href="/add-item">
+            <a>
               <Button variant="light" size="sm">
-                Add Item
+                add Item
               </Button>
             </a>
+            </Link>
           </li>
-          <li>
+          {/* <li>
             <a href="#">
               <Button variant="light" size="sm">
                 Stock
               </Button>
             </a>
-          </li>
+          </li> */}
           <li>
-            <a href="#">
+          <Link href="/history">
+            <a>
               <Button variant="light" size="sm">
                 History
               </Button>
             </a>
+            </Link>
           </li>
         </ul>
 
         <div className="stock-value mt-5">
           <div className="stocks">
             <h3 className="text-white">Stocks</h3>
-            <h4>5000</h4>
+            <h4>{stock}</h4>
           </div>
           <div className="value mt-5">
             <h3 className="text-white">Value</h3>
-            <h4>20000055550</h4>
+            <h4>
+              {total_value && total_value}
+              {/* {product.map((item)=>(item.))}  */}
+            </h4>
           </div>
         </div>
       </div>
