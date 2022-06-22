@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-const Sidebar = () => {
+const Sidebar = ({ setCreateItemModal, setAddItemModal }) => {
   const [product, setProduct] = useState([]);
   const [total_value, setTotal_value] = useState(0);
   const [stock, setStock] = useState(0);
   const { products } = useSelector((state) => state.productReducer);
+
   useEffect(() => {
     setProduct(products);
   }, [products]);
+
   useEffect(() => {
     const totVal =
       product.length > 0 &&
@@ -28,26 +30,26 @@ const Sidebar = () => {
   return (
     <>
       <div className="vh-100 bg-primary sidebar border-right">
-        <h1 className="text-center border-bottom"><Link href={"/"}><a className="text-white">Dashboard</a></Link></h1>
+        <h1 className="text-center border-bottom">
+          <Link href={"/"}>
+            <a className="text-white">Dashboard</a>
+          </Link>
+        </h1>
 
         <ul className="w-100 text-center">
           <li>
-            <Link href="/create-item">
-            <a>
-              <Button variant="light" size="sm">
-                Create Item
-              </Button>
-            </a>
-            </Link>
+            <Button
+              variant="light"
+              size="sm"
+              onClick={() => setCreateItemModal(true)}
+            >
+              Create Item
+            </Button>
           </li>
           <li>
-          <Link href="/add-item">
-            <a>
-              <Button variant="light" size="sm">
-                add Item
-              </Button>
-            </a>
-            </Link>
+            <Button variant="light" size="sm" onClick={()=>setAddItemModal(true)}>
+              add Item
+            </Button>
           </li>
           {/* <li>
             <a href="#">
@@ -57,12 +59,12 @@ const Sidebar = () => {
             </a>
           </li> */}
           <li>
-          <Link href="/history">
-            <a>
-              <Button variant="light" size="sm">
-                History
-              </Button>
-            </a>
+            <Link href="/history">
+              <a>
+                <Button variant="light" size="sm">
+                  History
+                </Button>
+              </a>
             </Link>
           </li>
         </ul>

@@ -3,7 +3,8 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { deleteProduct, getProduct } from "../redux/actions";
+import { deleteProduct} from "../redux/actions";
+
 
 const TableData = () => {
   const [product, setProduct] = useState([]);
@@ -18,11 +19,11 @@ const TableData = () => {
     if (confirmed) {
       dispatch(deleteProduct(id));
     }
-    console.log("confirmed===", confirmed);
   };
 
   return (
     <div className="bg-white">
+      
       <Table>
         <thead>
           <tr>
@@ -35,7 +36,7 @@ const TableData = () => {
           </tr>
         </thead>
         <tbody>
-          {product.length > 0 &&
+          {product?.length > 0 &&
             product.map((item, ind) => (
               <tr key={ind} className="text-capitalize">
                 <td>{ind + 1}</td>
@@ -44,6 +45,7 @@ const TableData = () => {
                 <td>{item.bag_price}</td>
                 <td>{item.qty}</td>
                 <td>
+                <Button className="me-2" variant="outline-warning" size="md">Sale</Button>
                   <Button className="me-2" variant="outline-primary" size="sm">
                     <div className="icons-edit-delete">
                       <FiEdit />
@@ -58,6 +60,7 @@ const TableData = () => {
                       <RiDeleteBinFill />
                     </div>
                   </Button>
+                  
                 </td>
               </tr>
             ))}

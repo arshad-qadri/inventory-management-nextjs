@@ -33,7 +33,7 @@ const handler = nc()
     const newProduct = new productModel({bag_id,bag_name,bag_price,qty})
    try {
        await newProduct.save()
-       res.json({message:"New product created"})
+       res.json({data:newProduct, message:"New product created"})
    } catch (error) {
        console.log(error);
    }

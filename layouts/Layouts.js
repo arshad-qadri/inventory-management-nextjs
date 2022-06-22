@@ -1,14 +1,17 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import AddItem from "../modals/AddItem";
+import CreateItem from "../modals/CreateItem";
 import { getProduct } from "../redux/actions";
-import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const Layouts = ({ children }) => {
   const { loading } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
+  const [createItemModal, setCreateItemModal] = useState(false);
+  const [addItemModal, setAddItemModal] = useState(false);
 
   useEffect(() => {
     dispatch(getProduct());
@@ -31,13 +34,18 @@ const Layouts = ({ children }) => {
           </div>
         )}
         <div className="left-side-layout">
-          <Sidebar />
+          <Sidebar setCreateItemModal={setCreateItemModal} setAddItemModal={setAddItemModal}/>
         </div>
         <div className="right-side-layout py-3">
           {/* <Header /> */}
           {children}
         </div>
       </div>
+
+      <CreateItem show={createItemModal}
+        onHide={() => setCreateItemModal(false)}/>
+        <AddItem show={addItemModal}
+        onHide={() => setAddItemModal(false)}/>
     </>
   );
 };
