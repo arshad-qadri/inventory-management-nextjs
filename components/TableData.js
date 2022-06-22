@@ -3,7 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { deleteProduct } from "../redux/actions";
+import { deleteProduct, getProduct } from "../redux/actions";
 
 const TableData = () => {
   const [product, setProduct] = useState([]);
@@ -11,11 +11,11 @@ const TableData = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     setProduct(products);
-    console.log("products", products);
   }, [products]);
 
   const handleDelete=(id) =>{
     dispatch(deleteProduct(id))
+    dispatch(getProduct())
   }
 
   return (

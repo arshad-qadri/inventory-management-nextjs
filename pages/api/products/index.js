@@ -1,9 +1,16 @@
 import nc from "next-connect";
 import productModel from "../../../backend/models/productModel";
 import initDb from '../../../backend/db/connectDb'
+import NextCors from 'nextjs-cors';
 initDb()
 const handler = nc()
   .get(async(req, res) => {
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+     });
       try {
          const products =  await productModel.find({})
          res.send(products)
@@ -12,6 +19,12 @@ const handler = nc()
       }
   })
   .post(async(req, res) => {
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+     });
    const {bag_id,bag_name,bag_price,qty}=req.body
    const product = await productModel.findOne({bag_id:bag_id})
    if(product){
