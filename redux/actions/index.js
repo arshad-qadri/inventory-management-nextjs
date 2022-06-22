@@ -26,7 +26,7 @@ export const deleteProduct = (id) => {
       .then((res) => {
         if (res) {
           dispatch({ type: isLoading, payload: false });
-          getProduct();
+          dispatch(getProduct())
         }
       })
       .catch((err) => {

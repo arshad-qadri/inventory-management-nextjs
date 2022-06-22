@@ -15,7 +15,6 @@ const TableData = () => {
 
   const handleDelete=(id) =>{
     dispatch(deleteProduct(id))
-    dispatch(getProduct())
   }
 
   return (
