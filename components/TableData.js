@@ -8,14 +8,18 @@ import { deleteProduct, getProduct } from "../redux/actions";
 const TableData = () => {
   const [product, setProduct] = useState([]);
   const { products } = useSelector((state) => state.productReducer);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     setProduct(products);
   }, [products]);
 
-  const handleDelete=(id) =>{
-    dispatch(deleteProduct(id))
-  }
+  const handleDelete = (id) => {
+    const confirmed = confirm("Are you sure want to delete?");
+    if (confirmed) {
+      dispatch(deleteProduct(id));
+    }
+    console.log("confirmed===", confirmed);
+  };
 
   return (
     <div className="bg-white">
@@ -45,7 +49,11 @@ const TableData = () => {
                       <FiEdit />
                     </div>
                   </Button>
-                  <Button variant="outline-danger" size="sm" onClick={()=> handleDelete(item._id)}>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => handleDelete(item._id)}
+                  >
                     <div className="icons-edit-delete">
                       <RiDeleteBinFill />
                     </div>
