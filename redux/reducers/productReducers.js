@@ -1,10 +1,16 @@
-import { FIND_PRODUCT, GET_PRODUCT, HISTORY, isLoading } from "../actions/type";
+import {
+  FIND_PRODUCT,
+  GET_PRODUCT,
+  HISTORY,
+  isLoading,
+  SEARCHED,
+} from "../actions/type";
 
 const initState = {
   products: [],
   oneProduct: {},
   loading: false,
-  history:[]
+  history: [],
 };
 const productReducer = (state = initState, action) => {
   switch (action.type) {
@@ -29,6 +35,18 @@ const productReducer = (state = initState, action) => {
       return {
         ...state,
         history: action.payload,
+      };
+    case SEARCHED:
+      const filtered = state.products.filter(
+        (item) =>
+          item.bag_id.toLowerCase().includes(action.payload) ||
+          item.bag_name.toLowerCase().includes(action.payload) ||
+          item.bag_price.toLowerCase().includes(action.payload)
+      );
+
+      return {
+        ...state,
+        products: filtered,
       };
 
     default:

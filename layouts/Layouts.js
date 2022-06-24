@@ -17,9 +17,7 @@ const Layouts = ({ children }) => {
     dispatch(getProduct());
   }, []);
 
-  useEffect(() => {
-    console.log("loading==", loading);
-  }, [loading]);
+
   return (
     <>
       <Head>

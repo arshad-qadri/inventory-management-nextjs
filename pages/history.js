@@ -10,7 +10,14 @@ const History = () => {
   }, []);
   return (
     <>
-      <Container>history</Container>
+      <Container>
+        <div  className="bg-primary w-100 text-center text-white py-2 mb-2">
+          <h3 className="m-0">History</h3>
+        </div>
+        <div className="bg-white shadow-sm">
+          dfdfdsf
+        </div>
+      </Container>
     </>
   );
 };

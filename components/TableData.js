@@ -36,7 +36,7 @@ const TableData = () => {
           </tr>
         </thead>
         <tbody>
-          {product?.length > 0 &&
+          {product?.length > 0 ?
             product.map((item, ind) => (
               <tr key={ind} className="text-capitalize">
                 <td>{ind + 1}</td>
@@ -63,7 +63,7 @@ const TableData = () => {
                   
                 </td>
               </tr>
-            ))}
+            )):<tr><td>No record found</td></tr>}
         </tbody>
       </Table>
     </div>

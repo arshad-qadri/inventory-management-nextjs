@@ -20,8 +20,7 @@ const AddItem = (props) => {
     setProduct(oneProduct.data);
   }, [oneProduct]);
   useEffect(() => {
-    
- if (product) {
+    if (product) {
       setFormData({
         ...formData,
         bag_name: product.bag_name,
@@ -31,38 +30,39 @@ const AddItem = (props) => {
   }, [product]);
 
   useEffect(() => {
-    if(formData.bag_id===""){ 
-        setFormData({
-            ...formData,
-            bag_id:"",
-            bag_name: "",
-            bag_price: "",
-          });
-    }
-   else if (formData.bag_id) {
+    if (formData.bag_id === "") {
+      setFormData({
+        ...formData,
+        bag_id: "",
+        bag_name: "",
+        bag_price: "",
+      });
+    } else if (formData.bag_id) {
       dispatch(findProduct(formData.bag_id));
     }
-    console.log(formData);
   }, [formData.bag_id]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = ()=>{
-      const obj = {
-        bag_id:product.bag_id,
-        bag_name:formData.bag_name,
-        bag_price:formData.bag_price,
-        qty:product.qty + parseInt(formData.qty) 
-      }
+  const handleSubmit = () => {
+    const obj = {
+      bag_id: product.bag_id,
+      bag_name: formData.bag_name,
+      bag_price: formData.bag_price,
+      qty: product.qty + parseInt(formData.qty),
+    };
 
-      console.log("===>",formData);
-      
-      dispatch(addProduct(product._id,obj))
-      setFormData({...formData, bag_id:"",bag_name:"",bag_price:"",qty:""})
-      props.onHide()
-
-}
+    dispatch(addProduct(product._id, obj));
+    setFormData({
+      ...formData,
+      bag_id: "",
+      bag_name: "",
+      bag_price: "",
+      qty: "",
+    });
+    props.onHide();
+  };
   return (
     <>
       <Modal
@@ -79,7 +79,11 @@ const AddItem = (props) => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Bag Id</Form.Label>
-                <Form.Select name="bag_id" value={formData.bag_id} onChange={handleChange}>
+                <Form.Select
+                  name="bag_id"
+                  value={formData.bag_id}
+                  onChange={handleChange}
+                >
                   <option value={""}>Select bag id</option>
                   {products?.length > 0 &&
                     products.map((item) => (
@@ -125,8 +129,12 @@ const AddItem = (props) => {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleSubmit}>Save</Button>
-          <Button variant="danger" onClick={props.onHide}>Close</Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Save
+          </Button>
+          <Button variant="danger" onClick={props.onHide}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

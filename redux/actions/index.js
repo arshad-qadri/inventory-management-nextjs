@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../../variable";
-import { FIND_PRODUCT, GET_PRODUCT, HISTORY, isLoading } from "./type";
+import { FIND_PRODUCT, GET_PRODUCT, HISTORY, isLoading, SEARCHED } from "./type";
 
 export const getProduct = () => {
   return (dispatch) => {
@@ -25,7 +25,6 @@ export const createProduct = (data) => {
       .post(`${baseUrl}products`, data)
       .then((res) => {
         if (res) {
-          console.log("crated product", res.data?.data);
           dispatch({ type: isLoading, payload: false });
           alert(res?.data?.message);
           dispatch(getProduct());
@@ -133,3 +132,10 @@ export const getHistory = () => {
       });
   };
 };
+
+
+export const searchProduct = (text)=>{
+  return (dispatch)=>{
+    dispatch({type:SEARCHED, payload:text})
+  }
+} 
