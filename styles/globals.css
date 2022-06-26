@@ -2,8 +2,9 @@
   display: grid;
   grid-template-columns: 200px auto;
   position: relative;
+
 }
-.isloading{
+.isloading {
   position: absolute;
   left: 0;
   top: 0;
@@ -27,45 +28,79 @@
 .header {
   height: 60px;
 }
-.sidebar ul{
+.sidebar ul {
   padding: 0;
   width: 100%;
 }
-.sidebar ul li{
+.sidebar ul li {
   margin-top: 20px;
   list-style: none;
 }
-.sidebar ul li button{
+.sidebar ul li button {
   width: 150px;
 }
-.cardOnDashboard h1{
+.cardOnDashboard h1 {
   font-size: 30px;
   margin: 0;
 }
-.stock-value{
+.stock-value {
   text-align: center;
   margin-top: 30px;
 }
-.stock-value .stocks h3,.stock-value .value h3{
+.stock-value .stocks h3,
+.stock-value .value h3 {
   font-size: 20px;
 }
-.stock-value .stocks h4,.stock-value .value h4{
+.stock-value .stocks h4,
+.stock-value .value h4 {
   font-size: 20px;
   width: 150px;
   background: #fff;
   margin: 0 auto;
-  -moz-box-shadow:    inset 0 0 10px #000000;
+  -moz-box-shadow: inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
   padding: 5px 0;
 }
-.search-input{
-  height: 70px;
+.search-input {
+  height: 50px;
 }
-.icons-edit-delete{
+.icons-edit-delete {
   font-size: 20px;
 }
-
+.history_list {
+  /* display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px; */
+  margin-top: 10px;
+}
+.history_list .titles {
+  font-weight: 600;
+}
+.history_list .title_value {
+  font-weight: 500;
+  color: gray;
+  font-size: 17px;
+}
+.in_history {
+  background-color: rgb(221, 252, 221);
+}
+.out_history {
+  background-color: rgb(243, 199, 199);
+}
+.date_time {
+  font-size: 12px;
+  display: flex;
+  margin-top: 10px;
+  color: gray;
+  column-gap: 10px;
+}
+.history_overflow {
+  overflow-y: auto;
+  height: calc(100vh - 76px);
+  padding-bottom: 10px;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -74,6 +109,41 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
+}
+.toggle{
+  display: none;
+  z-index: 12;
+  width: 40px;
+  height: 40px;
+  background: #0d6efd;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font-size: 25px;
+  color: #fff;    
+  font-weight: bolder;
+}
+/* ============= responsive ===================== */
+
+@media screen and (max-width: 768px) {
+  .layout {
+    grid-template-columns: auto;
+  }
+  .left-side-layout {
+    width: 200px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: .5s;
+  }
+  .toggle{
+    position: absolute;
+    display: block;
+    left: 180px;
+    top: 10px;
+ 
+  }
 }

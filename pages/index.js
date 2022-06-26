@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Search from "../components/Search";
@@ -12,6 +12,7 @@ export default function Home() {
         <Search />
         <TableData />
       </Container>
+
     </>
   );
 }

@@ -6,22 +6,20 @@ import { useDispatch } from "react-redux";
 import { createProduct } from "../redux/actions";
 
 const CreateItem = (props) => {
-    const dispatch = useDispatch()
-    const [formData,setFormData]=useState({
-        bag_id:"",
-        bag_name:"",
-        bag_price:"",
-        qty:"",
-    })
-    const handleChange=(e)=>{
-        setFormData({...formData, [e.target.name]:e.target.value})
-    }
-    const handleSubmit = ()=>{
-        console.log("formData===",formData);
-        dispatch(createProduct(formData))
-        props.onHide()
-
-    }
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    bag_id: "",
+    bag_name: "",
+    bag_price: "",
+    qty: "",
+  });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = () => {
+    dispatch(createProduct(formData,"IN"));
+    props.onHide();
+  };
   return (
     <>
       <Modal
@@ -40,26 +38,48 @@ const CreateItem = (props) => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Bag Id</Form.Label>
-                <Form.Control name="bag_id" onChange={handleChange} type="text" placeholder="Bag id" />
+                <Form.Control
+                  name="bag_id"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Bag id"
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Bag Name</Form.Label>
-                <Form.Control name="bag_name" onChange={handleChange} type="text" placeholder="Bag name" />
+                <Form.Control
+                  name="bag_name"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Bag name"
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Bag Price</Form.Label>
-                <Form.Control name="bag_price" onChange={handleChange} type="number" placeholder="Bag price" />
+                <Form.Control
+                  name="bag_price"
+                  onChange={handleChange}
+                  type="number"
+                  placeholder="Bag price"
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Quantity</Form.Label>
-                <Form.Control name="qty" onChange={handleChange} type="number" placeholder="Quantity" />
+                <Form.Control
+                  name="qty"
+                  onChange={handleChange}
+                  type="number"
+                  placeholder="Quantity"
+                />
               </Form.Group>
             </Form>
           </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={handleSubmit}>Save</Button>
-          <Button variant="danger" onClick={props.onHide}>Close</Button>
+          <Button variant="danger" onClick={props.onHide}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -3,11 +3,14 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { deleteProduct} from "../redux/actions";
+import { deleteProduct } from "../redux/actions";
+import SaleItem from "../modals/SaleItem";
 
 
 const TableData = () => {
+  const [saleItemModal, setSaleItemModal] = useState(false);
   const [product, setProduct] = useState([]);
+  const [sale, setSale] = useState(null);
   const { products } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,10 +23,13 @@ const TableData = () => {
       dispatch(deleteProduct(id));
     }
   };
+  const handleSale = (data) => {
+    setSaleItemModal(true)
+    setSale(data)
+  };
 
   return (
-    <div className="bg-white">
-      
+    <div className="bg-white p-2 history_overflow">
       <Table>
         <thead>
           <tr>
@@ -36,16 +42,27 @@ const TableData = () => {
           </tr>
         </thead>
         <tbody>
-          {product?.length > 0 ?
+          {product?.length > 0 ? (
             product.map((item, ind) => (
-              <tr key={ind} className="text-capitalize">
+              <tr
+                key={ind}
+                className="text-capitalize"
+                onDoubleClick={() => console.log("double click", item)}
+              >
                 <td>{ind + 1}</td>
                 <td>{item.bag_id}</td>
                 <td>{item.bag_name}</td>
                 <td>{item.bag_price}</td>
                 <td>{item.qty}</td>
                 <td>
-                <Button className="me-2" variant="outline-warning" size="md">Sale</Button>
+                  <Button
+                    className="me-2"
+                    variant="outline-warning"
+                    size="md"
+                    onClick={() => handleSale(item)}
+                  >
+                    Sale
+                  </Button>
                   <Button className="me-2" variant="outline-primary" size="sm">
                     <div className="icons-edit-delete">
                       <FiEdit />
@@ -60,12 +77,19 @@ const TableData = () => {
                       <RiDeleteBinFill />
                     </div>
                   </Button>
-                  
                 </td>
               </tr>
-            )):<tr><td>No record found</td></tr>}
+            ))
+          ) : (
+            <tr>
+              <td>No record found</td>
+            </tr>
+          )}
         </tbody>
       </Table>
+
+      <SaleItem show={saleItemModal}
+        onHide={() => setSaleItemModal(false)} sale={sale} />
     </div>
   );
 };
