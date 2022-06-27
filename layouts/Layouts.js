@@ -21,9 +21,9 @@ const Layouts = ({ children }) => {
   useEffect(() => {
     dispatch(getProduct());
   }, []);
-useEffect(()=>{
-  console.log("sidebarRef===",sidebarRef);
-},[sidebarRef])
+// useEffect(()=>{
+//   console.log("sidebarRef===",sidebarRef);
+// },[sidebarRef])
 
   return (
     <>
@@ -44,7 +44,7 @@ useEffect(()=>{
         <div className="left-side-layout" style={{left:toggle?"0px":"-200px"}} ref={sidebarRef}>
           <Sidebar setCreateItemModal={setCreateItemModal} setAddItemModal={setAddItemModal}/>
         </div>
-        <div className="right-side-layout py-3">
+        <div className="right-side-layout">
           {/* <Header /> */}
           {children}
         </div>

@@ -96,11 +96,11 @@
   color: gray;
   column-gap: 10px;
 }
-.history_overflow {
+/* .history_overflow {
   overflow-y: auto;
   height: calc(100vh - 76px);
   padding-bottom: 10px;
-}
+} */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -126,11 +126,14 @@ input[type="number"] {
   color: #fff;    
   font-weight: bolder;
 }
+.right-side-layout{
+  padding: 20px 25px 10px 25px;
+}
 /* ============= responsive ===================== */
 
 @media screen and (max-width: 768px) {
   .layout {
-    grid-template-columns: auto;
+    grid-template-columns: 100vw;
   }
   .left-side-layout {
     width: 200px;
@@ -145,5 +148,14 @@ input[type="number"] {
     left: 180px;
     top: 10px;
  
+  }
+  .table_overflow{
+    overflow-x: auto;
+  }
+  .table_overflow_width{
+    min-width: 600px;
+  }
+  .right-side-layout{
+    padding: 50px 25px 10px 25px;
   }
 }

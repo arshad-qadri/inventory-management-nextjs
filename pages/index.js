@@ -8,10 +8,10 @@ import TableData from "../components/TableData";
 export default function Home() {
   return (
     <>
-      <Container className="">
+      {/* <Container className=""> */}
         <Search />
         <TableData />
-      </Container>
+      {/* </Container> */}
 
     </>
   );

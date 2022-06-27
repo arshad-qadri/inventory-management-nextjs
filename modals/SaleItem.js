@@ -42,12 +42,9 @@ const SaleItem = (props) => {
         bag_name: bag_name,
         bag_price: bag_price,
       });
-      console.log("sale===", props.sale);
     }
   }, [props.sale]);
-  useEffect(() => {
-    console.log("formData===", formData);
-  }, [formData]);
+
   return (
     <>
       <Modal
