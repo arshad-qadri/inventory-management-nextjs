@@ -60,17 +60,19 @@ export const findProduct = (id) => {
   };
 };
 
-export const addProduct = (id, data, historyObj, type) => {
-  alert(id)
+export const addProduct = (id, data, historyObj, type, alertMsg) => {
   return (dispatch) => {
     dispatch({ type: isLoading, payload: true });
     axios
-    .put(`${baseUrl}products/${id}`, data)
-    .then((res) => {
-      if (res) {
+      .put(`${baseUrl}products/${id}`, data)
+      .then((res) => {
+        if (res) {
           dispatch({ type: isLoading, payload: false });
           dispatch(getProduct());
-          dispatch(createHistory(historyObj, type));
+          if (historyObj && type) {
+            dispatch(createHistory(historyObj, type));
+          }
+          dispatch(tostifyMsg(alertMsg, "success"))
         }
       })
       .catch((err) => {
@@ -80,10 +82,10 @@ export const addProduct = (id, data, historyObj, type) => {
   };
 };
 
-export const saleProduct = (id, data, saleData,type) => {
+export const saleProduct = (id, data, saleData, type) => {
   return (dispatch) => {
     dispatch(addProduct(id, data, saleData, type));
-    dispatch(tostifyMsg("Product sale","success"))
+    dispatch(tostifyMsg("Product sold", "success"));
   };
 };
 export const deleteProduct = (id) => {

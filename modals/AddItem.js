@@ -59,7 +59,7 @@ const AddItem = (props) => {
       qty: parseInt(formData.qty),
     };
 
-    dispatch(addProduct(product._id, obj1, obj2,"IN"));
+    dispatch(addProduct(product._id, obj1, obj2,"IN","Product added !"));
     setFormData({
       ...formData,
       bag_id: "",

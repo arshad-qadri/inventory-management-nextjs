@@ -96,11 +96,11 @@
   color: gray;
   column-gap: 10px;
 }
-/* .history_overflow {
+.history_overflow {
   overflow-y: auto;
   height: calc(100vh - 76px);
   padding-bottom: 10px;
-} */
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

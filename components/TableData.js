@@ -7,9 +7,14 @@ import { deleteProduct } from "../redux/actions";
 import SaleItem from "../modals/SaleItem";
 import Pagination from "react-bootstrap/Pagination";
 import { useReducer } from "react";
+import ShowProductModal from "../modals/ShowProductModal";
+import EditItemModal from "../modals/EditItemModal";
 
 const TableData = () => {
   const [saleItemModal, setSaleItemModal] = useState(false);
+  const [showProduct, setShowProduct] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [showProductObj, setShowProductObj] = useState({});
   const [product, setProduct] = useState([]);
   const [sale, setSale] = useState(null);
   const [pageNum, setPageNum] = useState(1);
@@ -25,7 +30,7 @@ const TableData = () => {
       const filtered = products.filter(
         (item, ind) => ind >= pervNum && ind < nextNum
       );
-      setProduct(filtered);
+      setProduct(filtered.reverse());
       let num = products.length / 7;
 
       setPageNum(Math.ceil(num));
@@ -43,10 +48,9 @@ const TableData = () => {
     setSale(data);
   };
 
-  useEffect(() => {
-    numRef.current = activePageNum;
-  }, [activePageNum]);
-
+  // useEffect(() => {
+  //   // numRef.current = activePageNum;
+  // }, [activePageNum]);
 
   const handlePagination = (number) => {
     setActivePageNum(number);
@@ -80,6 +84,15 @@ const TableData = () => {
       </Pagination.Item>
     );
   }
+  const handleShowDetails = (item)=>{
+    setShowProduct(true)
+    setShowProductObj(item)
+  }
+
+  const handleEdit=(item)=>{
+    setEditModal(true)
+    setShowProductObj(item)
+  }
 
   return (
     <>
@@ -103,7 +116,7 @@ const TableData = () => {
                     <tr
                       key={ind}
                       className="text-capitalize"
-                      onDoubleClick={() => console.log("double click", item)}
+                      onDoubleClick={() => handleShowDetails(item)}
                     >
                       <td>{ind + 1}</td>
                       <td>{item.bag_id}</td>
@@ -124,7 +137,7 @@ const TableData = () => {
                           variant="outline-primary"
                           size="sm"
                         >
-                          <div className="icons-edit-delete">
+                          <div className="icons-edit-delete" onClick={()=>handleEdit(item)}>
                             <FiEdit />
                           </div>
                         </Button>
@@ -153,10 +166,24 @@ const TableData = () => {
               onHide={() => setSaleItemModal(false)}
               sale={sale}
             />
+            <ShowProductModal
+              show={showProduct}
+              onHide={() => setShowProduct(false)}
+              data={showProductObj}
+            />
+            <EditItemModal
+              show={editModal}
+              onHide={() => setEditModal(false)}
+              data={showProductObj}
+            />
           </div>
         </div>
       </div>
-      {product.length > 0 && <div className="w-100 text-center my-2 d-flex justify-content-center"><Pagination ref={numRef}>{items}</Pagination></div> }
+      {product.length > 0 && (
+        <div className="w-100 text-center my-2 d-flex justify-content-center">
+          <Pagination ref={numRef}>{items}</Pagination>
+        </div>
+      )}
     </>
   );
 };

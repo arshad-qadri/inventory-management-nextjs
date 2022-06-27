@@ -3,9 +3,9 @@ import { Container, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
-import { saleProduct } from "../redux/actions";
+import { addProduct } from "../redux/actions";
 
-const SaleItem = (props) => {
+const EditItemModal = (props) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     bag_id: "",
@@ -13,63 +13,45 @@ const SaleItem = (props) => {
     bag_price: "",
     qty: "",
   });
+
+  useEffect(() => {
+    if (props.data) {
+      setFormData({
+        ...formData,
+        bag_id: props.data.bag_id,
+        bag_name: props.data.bag_name,
+        bag_price: props.data.bag_price,
+        qty: props.data.qty,
+      });
+    }
+  }, [props]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = () => {
-    const { bag_id, bag_name, bag_price } = formData;
     const obj1 = {
-      bag_id,
-      bag_name,
-      bag_price,
-      qty: props.sale.qty - parseInt(formData.qty),
+      bag_id: formData.bag_id,
+      bag_name: formData.bag_name,
+      bag_price: formData.bag_price,
+      qty: formData.qty,
     };
-    const obj2 = {
-      bag_id,
-      bag_name,
-      bag_price,
-      qty: parseInt(formData.qty),
-    };
-    if (formData.qty === "") {
-      alert("Please enter quantity !!");
-    } else if (props.sale.qty == 0) {
-      alert("Sorry this bag is not available !!");
-    } else if (props.sale.qty < parseInt(formData.qty)) {
-      alert(`Sorry we have total ${props.sale.qty} bags`);
-    } else {
-      const confirmed = confirm(
-        `You are seling ${formData.qty} quantity of ${props.sale.bag_name}`
-      );
-      if (confirmed) {
-        dispatch(saleProduct(props.sale._id, obj1, obj2, "OUT"));
-        props.onHide();
-      }
-    }
+    dispatch(addProduct(props.data._id, obj1, {}, "", "Product edited !"));
+    setFormData({
+      ...formData,
+      bag_id: "",
+      bag_name: "",
+      bag_price: "",
+      qty: "",
+    });
+    props.onHide();
   };
-
-  useEffect(() => {
-    if (props.onHide) {
-      setFormData({
-        ...formData,
-        bag_id: "",
-        bag_name: "",
-        bag_price: "",
-        qty: "",
-      });
-    }
-  }, [props]);
-  useEffect(() => {
-    if (props.sale) {
-      const { bag_id, bag_name, bag_price } = props.sale;
-      setFormData({
-        ...formData,
-        bag_id: bag_id,
-        bag_name: bag_name,
-        bag_price: bag_price,
-      });
-    }
-  }, [props.sale]);
-
+  //   useEffect(()=>{
+  //     if(props.onHide){
+  //         setFormData({...formData, bag_id:"",bag_name:"",bag_price:"",qty:""})
+  //         console.log("formdata===",formData);
+  //     }
+  //   },[props])
   return (
     <>
       <Modal
@@ -79,9 +61,7 @@ const SaleItem = (props) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Sale Item
-          </Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Add Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -91,10 +71,9 @@ const SaleItem = (props) => {
                 <Form.Control
                   name="bag_id"
                   onChange={handleChange}
+                  value={formData.bag_id}
                   type="text"
                   placeholder="Bag id"
-                  value={formData.bag_id}
-                  disabled
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -102,10 +81,9 @@ const SaleItem = (props) => {
                 <Form.Control
                   name="bag_name"
                   onChange={handleChange}
+                  value={formData.bag_name}
                   type="text"
                   placeholder="Bag name"
-                  value={formData.bag_name}
-                  disabled
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -113,10 +91,9 @@ const SaleItem = (props) => {
                 <Form.Control
                   name="bag_price"
                   onChange={handleChange}
+                  value={formData.bag_price}
                   type="number"
                   placeholder="Bag price"
-                  value={formData.bag_price}
-                  disabled
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -126,13 +103,16 @@ const SaleItem = (props) => {
                   onChange={handleChange}
                   type="number"
                   placeholder="Quantity"
+                  value={formData.qty}
                 />
               </Form.Group>
             </Form>
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Save
+          </Button>
           <Button variant="danger" onClick={props.onHide}>
             Close
           </Button>
@@ -142,4 +122,4 @@ const SaleItem = (props) => {
   );
 };
 
-export default SaleItem;
+export default EditItemModal;
