@@ -5,10 +5,9 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { deleteProduct } from "../redux/actions";
 import SaleItem from "../modals/SaleItem";
-import Pagination from "react-bootstrap/Pagination";
-import { useReducer } from "react";
 import ShowProductModal from "../modals/ShowProductModal";
 import EditItemModal from "../modals/EditItemModal";
+import Pagination from "./Pagination";
 
 const TableData = () => {
   const [saleItemModal, setSaleItemModal] = useState(false);
@@ -17,25 +16,14 @@ const TableData = () => {
   const [showProductObj, setShowProductObj] = useState({});
   const [product, setProduct] = useState([]);
   const [sale, setSale] = useState(null);
-  const [pageNum, setPageNum] = useState(1);
-  const [pervNum, setPervNum] = useState(0);
-  const [nextNum, setNextNum] = useState(7);
-  const [activePageNum, setActivePageNum] = useState(1);
   const { products } = useSelector((state) => state.productReducer);
-  const numRef = useReducer();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (products.length > 0) {
-      const filtered = products.filter(
-        (item, ind) => ind >= pervNum && ind < nextNum
-      );
-      setProduct(filtered.reverse());
-      let num = products.length / 7;
-
-      setPageNum(Math.ceil(num));
-    }
-  }, [products, pervNum]);
+  // useEffect(() => {
+  //   if (products.length > 0) {
+  //     setProduct(products);
+  //   }
+  // }, [products]);
 
   const handleDelete = (id) => {
     const confirmed = confirm("Are you sure want to delete?");
@@ -48,51 +36,15 @@ const TableData = () => {
     setSale(data);
   };
 
-  // useEffect(() => {
-  //   // numRef.current = activePageNum;
-  // }, [activePageNum]);
-
-  const handlePagination = (number) => {
-    setActivePageNum(number);
-    if (activePageNum < number) {
-      setPervNum(pervNum + 7);
-      if (products.length - nextNum < 7) {
-        setNextNum(products.length);
-      } else {
-        setNextNum(nextNum + 7);
-      }
-    } else if (activePageNum > number) {
-      setPervNum(pervNum - 7);
-      if (products.length - pervNum < 7) {
-        setNextNum(pervNum);
-      } else {
-        setNextNum(nextNum - 7);
-      }
-    }
+  const handleShowDetails = (item) => {
+    setShowProduct(true);
+    setShowProductObj(item);
   };
 
-  let active = activePageNum;
-  let items = [];
-  for (let number = 1; number <= pageNum; number++) {
-    items.push(
-      <Pagination.Item
-        key={number}
-        active={number === active}
-        onClick={() => handlePagination(number)}
-      >
-        {number}
-      </Pagination.Item>
-    );
-  }
-  const handleShowDetails = (item)=>{
-    setShowProduct(true)
-    setShowProductObj(item)
-  }
-
-  const handleEdit=(item)=>{
-    setEditModal(true)
-    setShowProductObj(item)
-  }
+  const handleEdit = (item) => {
+    setEditModal(true);
+    setShowProductObj(item);
+  };
 
   return (
     <>
@@ -137,7 +89,10 @@ const TableData = () => {
                           variant="outline-primary"
                           size="sm"
                         >
-                          <div className="icons-edit-delete" onClick={()=>handleEdit(item)}>
+                          <div
+                            className="icons-edit-delete"
+                            onClick={() => handleEdit(item)}
+                          >
                             <FiEdit />
                           </div>
                         </Button>
@@ -179,11 +134,17 @@ const TableData = () => {
           </div>
         </div>
       </div>
-      {product.length > 0 && (
-        <div className="w-100 text-center my-2 d-flex justify-content-center">
-          <Pagination ref={numRef}>{items}</Pagination>
-        </div>
-      )}
+      <Pagination
+        items={products}
+        setItems={setProduct}
+        length={products.length}
+        // pageNum={pageNum}
+        // setPageNum={setPageNum}
+        // nextNum={nextNum}
+        // setNextNum={setNextNum}
+        // pervNum={pervNum}
+        // setPervNum={setPervNum}
+      />
     </>
   );
 };

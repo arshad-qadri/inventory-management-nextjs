@@ -36,8 +36,7 @@ const Sidebar = ({ setCreateItemModal, setAddItemModal }) => {
           </Link>
         </h1>
 
-        <ul className="w-100 text-center">
-          <li>
+        <ul className="w-100 text-center"><li>
             <Button
               variant="light"
               size="sm"
@@ -66,8 +65,7 @@ const Sidebar = ({ setCreateItemModal, setAddItemModal }) => {
                 </Button>
               </a>
             </Link>
-          </li>
-        </ul>
+          </li></ul>
 
         <div className="stock-value mt-5">
           <div className="stocks">

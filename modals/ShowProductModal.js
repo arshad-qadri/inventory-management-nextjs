@@ -19,20 +19,20 @@ const ShowProductModal = (props) => {
                 props.data &&
           <Container>
             <Row>
-                <Col lg={6} md={6} sm={6}> <h6>Bag Id </h6></Col>
-                <Col lg={6} md={6} sm={6}> <h6>: {props.data.bag_id}</h6></Col>
+                <Col > <h6>Bag Id </h6></Col>
+                <Col > <h6>: {props.data.bag_id}</h6></Col>
             </Row>
             <Row>
-                <Col lg={6} md={6} sm={6}> <h6>Bag Name </h6></Col>
-                <Col lg={6} md={6} sm={6}> <h6>: {props.data.bag_name}</h6></Col>
+                <Col> <h6>Bag Name </h6></Col>
+                <Col> <h6>: {props.data.bag_name}</h6></Col>
             </Row>
             <Row>
-                <Col lg={6} md={6} sm={6}> <h6>Bag Price </h6></Col>
-                <Col lg={6} md={6} sm={6}> <h6 className='text-success'>: {props.data.bag_price}</h6></Col>
+                <Col> <h6>Bag Price </h6></Col>
+                <Col> <h6 className='text-success'>: {props.data.bag_price}</h6></Col>
             </Row>
             <Row>
-                <Col lg={6} md={6} sm={6}> <h6>Quantity </h6></Col>
-                <Col lg={6} md={6} sm={6}> <h6 className='text-danger'>: {props.data.qty}</h6></Col>
+                <Col> <h6>Quantity </h6></Col>
+                <Col> <h6 className='text-danger'>: {props.data.qty}</h6></Col>
             </Row>
           </Container>
             }
