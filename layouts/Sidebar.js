@@ -1,32 +1,25 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
 
-const Sidebar = ({ setCreateItemModal, setAddItemModal }) => {
-  const [product, setProduct] = useState([]);
+const Sidebar = ({ setCreateItemModal, setAddItemModal,products }) => {
   const [total_value, setTotal_value] = useState(0);
-  const [stock, setStock] = useState(0);
-  const { products } = useSelector((state) => state.productReducer);
-
-  useEffect(() => {
-    setProduct(products);
-  }, [products]);
+  const [stock, setStock] = useState(0); 
 
   useEffect(() => {
     const totVal =
-      product.length > 0 &&
-      product.map((item) => item.qty * parseInt(item.bag_price));
+      products.length > 0 &&
+      products.map((item) => item.qty * parseInt(item.bag_price));
     const newTotVal = totVal.length > 0 && totVal?.reduce((a, b) => a + b);
     setTotal_value(newTotVal);
 
     const stockVal =
-      product.length > 0 && product.map((item) => parseInt(item.qty));
+      products.length > 0 && products.map((item) => parseInt(item.qty));
     const newStockVal =
       stockVal.length > 0 && stockVal?.reduce((a, b) => a + b);
-
     setStock(newStockVal);
-  }, [product]);
+  }, [products]);
+  
   return (
     <>
       <div className="vh-100 bg-primary sidebar border-right">
@@ -76,7 +69,7 @@ const Sidebar = ({ setCreateItemModal, setAddItemModal }) => {
             <h3 className="text-white">Value</h3>
             <h4>
               {total_value && total_value}
-              {/* {product.map((item)=>(item.))}  */}
+              {/* {products.map((item)=>(item.))}  */}
             </h4>
           </div>
         </div>

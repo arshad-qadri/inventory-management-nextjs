@@ -19,12 +19,6 @@ const TableData = () => {
   const { products } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (products.length > 0) {
-  //     setProduct(products);
-  //   }
-  // }, [products]);
-
   const handleDelete = (id) => {
     const confirmed = confirm("Are you sure want to delete?");
     if (confirmed) {

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import AddItem from "../modals/AddItem";
@@ -8,12 +8,20 @@ import Sidebar from "./Sidebar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { getProduct } from "../redux/actions";
 
 const Layouts = ({ children }) => {
   const { loading } = useSelector((state) => state.productReducer);
   const [createItemModal, setCreateItemModal] = useState(false);
   const [addItemModal, setAddItemModal] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const { products } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getProduct())
+  },[])
 
   const handleToggle = (e) => {
     setToggle(!toggle);
@@ -49,10 +57,10 @@ const Layouts = ({ children }) => {
           <Sidebar
             setCreateItemModal={setCreateItemModal}
             setAddItemModal={setAddItemModal}
+            products={products}
           />
         </div>
         <div className="right-side-layout">
-          {/* <Header /> */}
           {children}
         </div>
       </div>

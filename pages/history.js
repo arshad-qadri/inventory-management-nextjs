@@ -9,12 +9,11 @@ const History = () => {
   const [historyList, setHistoryList] = useState([]);
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.productReducer);
+
   useEffect(() => {
     dispatch(getHistory());
   }, []);
-  // useEffect(() => {
-  //   setHistoryList(history?.reverse());
-  // }, [history]);
+  
   return (
     <>
       <Container>
@@ -81,7 +80,7 @@ const History = () => {
               items={history}
               setItems={setHistoryList}
               length={historyList.length}
-              paginationNum={7}
+              paginationNum={6}
             />
           )} 
         </div>

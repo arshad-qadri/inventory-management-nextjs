@@ -15,7 +15,6 @@ const Pagination = ({ items, setItems, length, paginationNum }) => {
       );
       setItems(filtered.reverse());
     }
-    console.log("item",items);
   }, [items, nextNum, pervNum]);
 
   const handleNext = () => {
@@ -47,7 +46,7 @@ const Pagination = ({ items, setItems, length, paginationNum }) => {
         <Button variant="primary" size="sm" onClick={handlePerv}>
           <IoIosArrowBack />
         </Button>
-        <div className="px-2">{pageNum}</div>
+        <div className="px-3 bg-white py-1 m-2 ">{pageNum}</div>
         <Button variant="primary" size="sm" onClick={handleNext}>
           <IoIosArrowForward />
         </Button>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getProduct, searchProduct } from "../redux/actions";
+import {searchProduct } from "../redux/actions";
 
 const Search = () => {
   const [inpSearch,setInpSearch]=useState("")
@@ -11,12 +11,9 @@ const Search = () => {
   }
   useEffect(()=>{
     if(inpSearch.trim()){
-
       dispatch(searchProduct(inpSearch.toLowerCase().trim()))
     }
-    else{
-      dispatch(getProduct())
-    }
+    
   },[inpSearch])
   return (
     <>
