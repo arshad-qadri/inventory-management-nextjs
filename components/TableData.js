@@ -138,12 +138,7 @@ const TableData = () => {
         items={products}
         setItems={setProduct}
         length={products.length}
-        // pageNum={pageNum}
-        // setPageNum={setPageNum}
-        // nextNum={nextNum}
-        // setNextNum={setNextNum}
-        // pervNum={pervNum}
-        // setPervNum={setPervNum}
+        paginationNum={7}
       />
     </>
   );

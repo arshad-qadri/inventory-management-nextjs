@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistory } from "../redux/actions";
+import Pagination from "../components/Pagination";
 
 const History = () => {
   const [historyList, setHistoryList] = useState([]);
@@ -11,15 +12,15 @@ const History = () => {
   useEffect(() => {
     dispatch(getHistory());
   }, []);
-  useEffect(() => {
-    setHistoryList(history?.reverse());
-  }, [history]);
+  // useEffect(() => {
+  //   setHistoryList(history?.reverse());
+  // }, [history]);
   return (
     <>
       <Container>
-          <div className="bg-primary w-100 text-center text-white py-2 mb-2">
-            <h3 className="m-0">History</h3>
-          </div>
+        <div className="bg-primary w-100 text-center text-white py-2 mb-2">
+          <h3 className="m-0">History</h3>
+        </div>
         <div className="history_overflow">
           {historyList.length > 0 ? (
             historyList.map((item) => (
@@ -63,7 +64,9 @@ const History = () => {
                       </div>
 
                       <div>
-                        <span style={{letterSpacing:"1px"}}>{new Date(item.date).toLocaleTimeString()}</span>
+                        <span style={{ letterSpacing: "1px" }}>
+                          {new Date(item.date).toLocaleTimeString()}
+                        </span>
                       </div>
                     </div>
                   </Col>
@@ -73,6 +76,14 @@ const History = () => {
           ) : (
             <p>Not have any history</p>
           )}
+          {history && history.length > 0 && (
+            <Pagination
+              items={history}
+              setItems={setHistoryList}
+              length={historyList.length}
+              paginationNum={7}
+            />
+          )} 
         </div>
       </Container>
     </>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { paginationNum } from "../variable";
 
-const Pagination = ({ items, setItems, length }) => {
+
+const Pagination = ({ items, setItems, length, paginationNum }) => {
   const [pageNum, setPageNum] = useState(1);
   const [pervNum, setPervNum] = useState(0);
   const [nextNum, setNextNum] = useState(paginationNum);
@@ -15,7 +15,8 @@ const Pagination = ({ items, setItems, length }) => {
       );
       setItems(filtered.reverse());
     }
-  }, [items, nextNum, pervNum]); 
+    console.log("item",items);
+  }, [items, nextNum, pervNum]);
 
   const handleNext = () => {
     if (items.length - nextNum < paginationNum) {
@@ -23,8 +24,7 @@ const Pagination = ({ items, setItems, length }) => {
     } else {
       setNextNum(nextNum + paginationNum);
     }
-    if(nextNum< items.length)
-    setPervNum(pervNum + paginationNum);
+    if (nextNum < items.length) setPervNum(pervNum + paginationNum);
     if (nextNum < items.length) {
       setPageNum(pageNum + 1);
     }
@@ -33,11 +33,12 @@ const Pagination = ({ items, setItems, length }) => {
     if (items.length === nextNum) {
       setNextNum(pervNum);
     } else {
-      if(pervNum>0)
-      setNextNum(nextNum - paginationNum);
+      if (pervNum > 0) setNextNum(nextNum - paginationNum);
     }
-    if(pervNum>0)
-    setPervNum(pervNum - paginationNum);
+    if (pervNum > 0) {
+      setPervNum(pervNum - paginationNum);
+      setPageNum(pageNum - 1);
+    }
   };
 
   return (
