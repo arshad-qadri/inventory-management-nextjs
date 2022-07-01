@@ -108,7 +108,6 @@ export const deleteProduct = (id) => {
 };
 
 export const createHistory = (data, type) => {
-  console.log("data==>", data);
   return (dispatch) => {
     const { bag_id, bag_name, bag_price, qty } = data;
     const obj = {
