@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-
 const Pagination = ({ items, setItems, length, paginationNum }) => {
   const [pageNum, setPageNum] = useState(1);
   const [pervNum, setPervNum] = useState(0);
@@ -13,28 +12,34 @@ const Pagination = ({ items, setItems, length, paginationNum }) => {
       const filtered = items.filter(
         (item, ind) => ind >= pervNum && ind < nextNum
       );
-      setItems(filtered.reverse());
+      setItems(filtered);
     }
   }, [items, nextNum, pervNum]);
 
   const handleNext = () => {
-    if (items.length - nextNum < paginationNum) {
-      setNextNum(items.length);
-    } else {
-      setNextNum(nextNum + paginationNum);
-    }
-    if (nextNum < items.length) setPervNum(pervNum + paginationNum);
-    if (nextNum < items.length) {
+    console.log("next", nextNum);
+    console.log("perv", pervNum);
+    if (nextNum < length) {
+      if (length - nextNum < paginationNum) {
+        setNextNum(length);
+        setPervNum(pervNum + paginationNum);
+      } else {
+        setNextNum(nextNum + paginationNum);
+        setPervNum(pervNum + paginationNum);
+      }
       setPageNum(pageNum + 1);
     }
   };
   const handlePerv = () => {
-    if (items.length === nextNum) {
-      setNextNum(pervNum);
-    } else {
-      if (pervNum > 0) setNextNum(nextNum - paginationNum);
-    }
+    console.log("next", nextNum);
+    console.log("perv", pervNum);
+
     if (pervNum > 0) {
+      if (length === nextNum) {
+        setNextNum(pervNum);
+      } else {
+        setNextNum(nextNum - paginationNum);
+      }
       setPervNum(pervNum - paginationNum);
       setPageNum(pageNum - 1);
     }
@@ -42,6 +47,11 @@ const Pagination = ({ items, setItems, length, paginationNum }) => {
 
   return (
     <>
+      <div className="float-end mt-4 ">
+        <span>{pageNum}</span> of
+        <span> {Math.ceil(length / paginationNum)} </span>
+      </div>
+
       <div className="d-flex justify-content-center align-items-center py-3">
         <Button variant="primary" size="sm" onClick={handlePerv}>
           <IoIosArrowBack />

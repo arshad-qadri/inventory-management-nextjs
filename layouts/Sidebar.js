@@ -40,7 +40,7 @@ const Sidebar = ({ setCreateItemModal, setAddItemModal,products }) => {
           </li>
           <li>
             <Button variant="light" size="sm" onClick={()=>setAddItemModal(true)}>
-              add Item
+              Add Item
             </Button>
           </li>
           {/* <li>
@@ -63,12 +63,12 @@ const Sidebar = ({ setCreateItemModal, setAddItemModal,products }) => {
         <div className="stock-value mt-5">
           <div className="stocks">
             <h3 className="text-white">Stocks</h3>
-            <h4>{stock}</h4>
+            <h4>{stock? stock:0}</h4>
           </div>
           <div className="value mt-5">
             <h3 className="text-white">Value</h3>
             <h4>
-              {total_value && total_value}
+              {total_value ? total_value:0}
               {/* {products.map((item)=>(item.))}  */}
             </h4>
           </div>

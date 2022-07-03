@@ -47,27 +47,38 @@ const AddItem = (props) => {
   };
   const handleSubmit = () => {
     const obj1 = {
-      bag_id: product.bag_id,
+      bag_id: product?.bag_id,
       bag_name: formData.bag_name,
       bag_price: formData.bag_price,
-      qty: product.qty + parseInt(formData.qty),
+      qty: product?.qty + parseInt(formData.qty),
     };
     const obj2 = {
-      bag_id: product.bag_id,
+      bag_id: product?.bag_id,
       bag_name: formData.bag_name,
       bag_price: formData.bag_price,
       qty: parseInt(formData.qty),
     };
-
-    dispatch(addProduct(product._id, obj1, obj2,"IN","Product added !"));
-    setFormData({
-      ...formData,
-      bag_id: "",
-      bag_name: "",
-      bag_price: "",
-      qty: "",
-    });
-    props.onHide();
+    const { bag_id, bag_name, bag_price, qty } = formData;
+    if ((bag_id, bag_name, bag_price, qty)) {
+      dispatch(addProduct(product?._id, obj1, obj2, "IN", "Product added !"));
+      setFormData({
+        ...formData,
+        bag_id: "",
+        bag_name: "",
+        bag_price: "",
+        qty: "",
+      });
+      props.onHide();
+    } 
+    else if (formData.bag_id==="") {
+      alert("Please select any bag id !!");
+    }
+    else if (formData.qty==="") {
+      alert("Please enter quantity !!");
+    }
+     else {
+      alert("All fields are required !!");
+    }
   };
   return (
     <>

@@ -17,8 +17,13 @@ const CreateItem = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = () => {
-    dispatch(createProduct(formData,"IN"));
-    props.onHide();
+    const { bag_id, bag_name, bag_price, qty } = formData;
+    if ((bag_id, bag_name, bag_price, qty)) {
+      dispatch(createProduct(formData, "IN"));
+      props.onHide();
+    }  else {
+      alert("All fields are required !!");
+    }
   };
   return (
     <>

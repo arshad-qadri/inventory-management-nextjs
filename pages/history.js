@@ -79,7 +79,7 @@ const History = () => {
             <Pagination
               items={history}
               setItems={setHistoryList}
-              length={historyList.length}
+              length={history.length}
               paginationNum={6}
             />
           )} 

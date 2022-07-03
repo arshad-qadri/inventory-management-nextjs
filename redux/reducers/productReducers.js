@@ -17,7 +17,7 @@ const productReducer = (state = initState, action) => {
     case GET_PRODUCT:
       return {
         ...state,
-        products: action.payload,
+        products: action.payload.reverse(),
       };
 
     case isLoading:

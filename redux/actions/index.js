@@ -32,7 +32,12 @@ export const createProduct = (data, type) => {
     axios
       .post(`${baseUrl}products`, data)
       .then((res) => {
-        if (res) {
+        console.log("res===",res);
+        
+        if (res?.data?.message==="Please change bag id") {
+          alert(res.data.message)
+          dispatch({ type: isLoading, payload: false });
+        }else{
           dispatch({ type: isLoading, payload: false });
           dispatch(getProduct());
           dispatch(createHistory(res.data?.data, type));

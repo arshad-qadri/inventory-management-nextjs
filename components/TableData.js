@@ -8,6 +8,8 @@ import SaleItem from "../modals/SaleItem";
 import ShowProductModal from "../modals/ShowProductModal";
 import EditItemModal from "../modals/EditItemModal";
 import Pagination from "./Pagination";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const TableData = () => {
   const [saleItemModal, setSaleItemModal] = useState(false);
@@ -20,10 +22,24 @@ const TableData = () => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    const confirmed = confirm("Are you sure want to delete?");
-    if (confirmed) {
-      dispatch(deleteProduct(id));
-    }
+    confirmAlert({
+      title: '',
+      message: 'Are you sure want to delete?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => dispatch(deleteProduct(id))
+        },
+        {
+          label: 'No',
+          // onClick: () => alert('Click No')
+        }
+      ]
+    });
+    // const confirmed = confirm("Are you sure want to delete?");
+    // if (confirmed) {
+    //   dispatch(deleteProduct(id));
+    // }
   };
   const handleSale = (data) => {
     setSaleItemModal(true);
@@ -128,12 +144,15 @@ const TableData = () => {
           </div>
         </div>
       </div>
-      <Pagination
-        items={products}
-        setItems={setProduct}
-        length={products.length}
-        paginationNum={7}
-      />
+      {}
+      {products.length > 0 && (
+        <Pagination
+          items={products}
+          setItems={setProduct}
+          length={products.length}
+          paginationNum={7}
+        />
+      )}
     </>
   );
 };
