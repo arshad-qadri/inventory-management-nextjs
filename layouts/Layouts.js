@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import AddItem from "../modals/AddItem";
 import CreateItem from "../modals/CreateItem";
@@ -10,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { getProduct } from "../redux/actions";
+import Loading from "../components/Loading";
 
 const Layouts = ({ children }) => {
   const { loading } = useSelector((state) => state.productReducer);
@@ -43,11 +43,7 @@ const Layouts = ({ children }) => {
           </div>
         </div>
         {loading && (
-          <div className="isloading">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>
+          <Loading/>
         )}
         <div
           className="left-side-layout"
