@@ -31,6 +31,8 @@ const Layouts = ({ children }) => {
     <>
       <Head>
         <title>Dashboard</title>
+        {/* <link rel="shortcut icon" href={favicon} /> */}
+        {/* <link rel="shortcut icon" href="../public/" /> */}
       </Head>
       <div className="w-100 vh-100 bg-light layout overflow-hidden">
         <div

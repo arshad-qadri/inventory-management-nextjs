@@ -120,7 +120,7 @@ const TableData = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6}>No record found</td>
+                    <td colSpan={6}>No data</td>
                   </tr>
                 )}
               </tbody>

@@ -104,6 +104,7 @@ const EditItemModal = (props) => {
                   type="number"
                   placeholder="Quantity"
                   value={formData.qty}
+                  disabled
                 />
               </Form.Group>
             </Form>
