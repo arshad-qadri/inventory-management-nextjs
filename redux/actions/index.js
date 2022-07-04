@@ -32,7 +32,6 @@ export const createProduct = (data, type) => {
     axios
       .post(`${baseUrl}products`, data)
       .then((res) => {
-        console.log("res===",res);
         
         if (res?.data?.message==="Please change bag id") {
           alert(res.data.message)
