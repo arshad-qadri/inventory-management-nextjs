@@ -3,7 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { deleteProduct } from "../redux/actions";
+import { deleteProduct, getProduct } from "../redux/actions";
 import SaleItem from "../modals/SaleItem";
 import ShowProductModal from "../modals/ShowProductModal";
 import EditItemModal from "../modals/EditItemModal";
@@ -28,7 +28,10 @@ const TableData = () => {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => dispatch(deleteProduct(id))
+          onClick: () =>{ 
+            dispatch(deleteProduct(id))
+            dispatch(getProduct())
+          }
         },
         {
           label: 'No',

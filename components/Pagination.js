@@ -1,24 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 const Pagination = ({ items, setItems, length, paginationNum }) => {
   const [pageNum, setPageNum] = useState(1);
   const [pervNum, setPervNum] = useState(0);
   const [nextNum, setNextNum] = useState(paginationNum);
+  const { searched_data } = useSelector((state) => state.productReducer);
 
   useEffect(() => {
-    if (items && items.length > 0) {
-      const filtered = items.filter(
-        (item, ind) => ind >= pervNum && ind < nextNum
-      );
-      setItems(filtered);
+    if (searched_data) {
+      setPageNum(1);
+      setPervNum(0);
+      setNextNum(paginationNum);
+
+      if (searched_data.length > 7) {
+        const filtered = items.filter(
+          (item, ind) => ind >= pervNum && ind < nextNum
+        );
+        setItems(filtered);
+      } else {
+        setItems(searched_data);
+      }
+    } else {
+      if (items && items.length > 0) {
+        const filtered = items.filter(
+          (item, ind) => ind >= pervNum && ind < nextNum
+        );
+        setItems(filtered);
+      }
     }
-  }, [items, nextNum, pervNum]);
+  }, [items, nextNum, pervNum, searched_data]);
+  useEffect(() => {
+    if (length - (nextNum - 1) === 0) {
+      alert("hi");
+      setPervNum(pervNum - paginationNum);
+      setNextNum(length);
+      setPageNum(pageNum - 1);
+    }
+  }, [length]);
 
   const handleNext = () => {
-    console.log("next", nextNum);
-    console.log("perv", pervNum);
     if (nextNum < length) {
       if (length - nextNum < paginationNum) {
         setNextNum(length);
@@ -31,9 +54,6 @@ const Pagination = ({ items, setItems, length, paginationNum }) => {
     }
   };
   const handlePerv = () => {
-    console.log("next", nextNum);
-    console.log("perv", pervNum);
-
     if (pervNum > 0) {
       if (length === nextNum) {
         setNextNum(pervNum);

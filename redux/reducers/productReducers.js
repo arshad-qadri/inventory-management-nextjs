@@ -8,6 +8,7 @@ import {
 
 const initState = {
   products: [],
+  searched_data :null,
   oneProduct: {},
   loading: false,
   history: [],
@@ -43,10 +44,11 @@ const productReducer = (state = initState, action) => {
           item.bag_name.toLowerCase().includes(action.payload) ||
           item.bag_price.toLowerCase().includes(action.payload)
       );
+      console.log("filtered===",filtered);
 
       return {
         ...state,
-        products: filtered,
+        searched_data: filtered,
       };
 
     default:
